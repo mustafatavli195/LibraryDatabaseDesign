@@ -2,17 +2,6 @@
 
 Bu proje, SQL kullanarak oluşturulmuş bir ilişkisel kütüphane veritabanı şeması ve bu veritabanıyla etkileşimde bulunmak için yazılmış bazı prosedür ve görünümleri içerir. Veritabanı, kütüphaneler için kitap, yazar, üye, ödünç verme, rezervasyon gibi çeşitli bilgileri yönetmeye yönelik tasarlanmıştır.
 
-## İçindekiler
-
-- [Özellikler](#özellikler)
-- [Veritabanı Şeması](#veritabanı-şeması)
-- [İlişkiler](#ilişkiler)
-- [Prosedürler](#prosedürler)
-- [Görünümler](#görünümler)
-- [Kurulum](#kurulum)
-- [Kullanım](#kullanım)
-- [Yazarlar](#yazarlar)
-
 ## Özellikler
 
 - **Adresler**: Kütüphane adres bilgilerini saklar.
@@ -91,28 +80,12 @@ Veritabanındaki tablolar arasındaki ilişkiler aşağıdaki gibidir:
 
 ## Prosedürler
 
-Aşağıdaki saklı prosedürler tanımlanmıştır:
-
 - **`BorrowBook`**: Bir kitabı ödünç verme işlemini gerçekleştirir.
 - **`ReturnBook`**: Bir kitabın geri verilmesini ve gecikme cezasını hesaplar.
 - **`GetBookAuthors`**: Bir kitabın yazarlarını listeler.
 
 ## Görünümler
 
-Aşağıdaki görünümler tanımlanmıştır:
-
 - **`BookStatus`**: Kitapların mevcut durumunu (ödünçte mi, mevcut mı) gösterir.
 - **`MemberLoans`**: Üyelerin ödünç aldıkları kitapları ve detaylarını listeler.
 - **`BooksByCategory`**: Kategorilere göre kitap sayısını gösterir.
-
-## Kurulum
-
-1. Veritabanını oluşturmak için SQL sorgularını çalıştırın.
-2. Saklı prosedürleri ve görünümleri veritabanına ekleyin.
-
-```sql
--- Veritabanını oluştur ve kullan
-CREATE DATABASE IF NOT EXISTS LibraryDB;
-USE LibraryDB;
-
--- Tablo ve prosedürleri ekleyin (sizin verdiğiniz SQL kodlarını burada kullanın)
