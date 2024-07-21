@@ -1,95 +1,95 @@
-# Kütüphane Yönetim Sistemi
+# Library Management System
 
-Bu proje, SQL kullanarak oluşturulmuş bir ilişkisel kütüphane veritabanı şeması ve bu veritabanıyla etkileşimde bulunmak için yazılmış bazı prosedür ve görünümleri içerir. Veritabanı, kütüphaneler için kitap, yazar, üye, ödünç verme, rezervasyon gibi çeşitli bilgileri yönetmeye yönelik tasarlanmıştır.
+This project includes a relational library database schema created using SQL and some procedures and views written to interact with this database. The database is designed to manage various information such as books, authors, members, borrowing, and reservations for libraries.
 
-## Kütüphane Veritabanı Diyagramı
+## Library Database Diagram
 
 ![Library Database Diagram](LibraryDB.png)
 
-## Özellikler
+## Features
 
-- **Adresler**: Kütüphane adres bilgilerini saklar.
-- **Yayıncılar**: Kitapların yayıncı bilgilerini içerir.
-- **Kategoriler**: Kitap kategorilerini tanımlar.
-- **Yazarlar**: Kitap yazarlarının bilgilerini saklar.
-- **Kitaplar**: Kütüphanedeki kitapları yönetir.
-- **Kitap-Yazar İlişkileri**: Bir kitabın bir veya birden fazla yazarla ilişkisini belirler.
-- **Üyeler**: Kütüphane üyelerinin bilgilerini tutar.
-- **Kütüphane Personeli**: Kütüphane personelinin bilgilerini içerir.
-- **Ödünç Verme**: Kitap ödünç verme işlemlerini yönetir.
-- **Rezervasyonlar**: Kitap rezervasyonlarını takip eder.
-- **Cezalar**: Gecikme cezalarını hesaplar ve kaydeder.
+- **Addresses**: Stores library address information.
+- **Publishers**: Contains information about book publishers.
+- **Categories**: Defines book categories.
+- **Authors**: Stores information about book authors.
+- **Books**: Manages books in the library.
+- **Book-Author Relationships**: Defines the relationship between a book and one or more authors.
+- **Members**: Holds information about library members.
+- **Library Staff**: Contains information about library staff.
+- **Loans**: Manages book borrowing transactions.
+- **Reservations**: Tracks book reservations.
+- **Fines**: Calculates and records late fees.
 
-## Veritabanı Şeması
+## Database Schema
 
-Veritabanı, aşağıdaki tabloları içerir:
+The database includes the following tables:
 
-- **Addresses**: Adres bilgileri.
-- **Publishers**: Yayıncılar ve adres ilişkileri.
-- **Categories**: Kitap kategorileri.
-- **Authors**: Yazarlar.
-- **Books**: Kitaplar, yayıncılar ve kategorilerle ilişkili.
-- **BookAuthors**: Kitap ve yazar ilişkileri.
-- **Members**: Üye bilgileri ve adres ilişkileri.
-- **LibraryStaff**: Kütüphane personel bilgileri ve adres ilişkileri.
-- **Loans**: Kitap ödünç verme bilgileri.
-- **Reservations**: Kitap rezervasyon bilgileri.
-- **Fines**: Geç teslim edilen kitaplar için cezalar.
+- **Addresses**: Address information.
+- **Publishers**: Publishers and address relationships.
+- **Categories**: Book categories.
+- **Authors**: Authors.
+- **Books**: Books, related to publishers and categories.
+- **BookAuthors**: Relationships between books and authors.
+- **Members**: Member information and address relationships.
+- **LibraryStaff**: Library staff information and address relationships.
+- **Loans**: Book borrowing information.
+- **Reservations**: Book reservation information.
+- **Fines**: Fines for overdue books.
 
-## İlişkiler
+## Relationships
 
-Veritabanındaki tablolar arasındaki ilişkiler aşağıdaki gibidir:
+The relationships between the tables in the database are as follows:
 
-- **Addresses** tablosu:
-  - **Publishers** tablosu ile `AddressId` üzerinden ilişkilidir.
-  - **Members** tablosu ile `AddressId` üzerinden ilişkilidir.
-  - **LibraryStaff** tablosu ile `AddressId` üzerinden ilişkilidir.
+- **Addresses** table:
+  - Related to **Publishers** table through `AddressId`.
+  - Related to **Members** table through `AddressId`.
+  - Related to **LibraryStaff** table through `AddressId`.
 
-- **Publishers** tablosu:
-  - **Books** tablosu ile `PublisherId` üzerinden ilişkilidir.
+- **Publishers** table:
+  - Related to **Books** table through `PublisherId`.
 
-- **Categories** tablosu:
-  - **Books** tablosu ile `CategoryId` üzerinden ilişkilidir.
+- **Categories** table:
+  - Related to **Books** table through `CategoryId`.
 
-- **Authors** tablosu:
-  - **BookAuthors** tablosu ile `AuthorId` üzerinden ilişkilidir.
+- **Authors** table:
+  - Related to **BookAuthors** table through `AuthorId`.
 
-- **Books** tablosu:
-  - **BookAuthors** tablosu ile `BookId` üzerinden ilişkilidir.
-  - **Loans** tablosu ile `BookId` üzerinden ilişkilidir.
-  - **Reservations** tablosu ile `BookId` üzerinden ilişkilidir.
+- **Books** table:
+  - Related to **BookAuthors** table through `BookId`.
+  - Related to **Loans** table through `BookId`.
+  - Related to **Reservations** table through `BookId`.
 
-- **BookAuthors** tablosu:
-  - **Books** tablosu ile `BookId` üzerinden ilişkilidir.
-  - **Authors** tablosu ile `AuthorId` üzerinden ilişkilidir.
+- **BookAuthors** table:
+  - Related to **Books** table through `BookId`.
+  - Related to **Authors** table through `AuthorId`.
 
-- **Members** tablosu:
-  - **Loans** tablosu ile `MemberId` üzerinden ilişkilidir.
-  - **Reservations** tablosu ile `MemberId` üzerinden ilişkilidir.
+- **Members** table:
+  - Related to **Loans** table through `MemberId`.
+  - Related to **Reservations** table through `MemberId`.
 
-- **LibraryStaff** tablosu:
-  - (Bu tabloda doğrudan ilişki kurulan başka bir tablo bulunmamaktadır.)
+- **LibraryStaff** table:
+  - (No direct relationships with other tables.)
 
-- **Loans** tablosu:
-  - **Books** tablosu ile `BookId` üzerinden ilişkilidir.
-  - **Members** tablosu ile `MemberId` üzerinden ilişkilidir.
-  - **Fines** tablosu ile `LoanId` üzerinden ilişkilidir.
+- **Loans** table:
+  - Related to **Books** table through `BookId`.
+  - Related to **Members** table through `MemberId`.
+  - Related to **Fines** table through `LoanId`.
 
-- **Reservations** tablosu:
-  - **Books** tablosu ile `BookId` üzerinden ilişkilidir.
-  - **Members** tablosu ile `MemberId` üzerinden ilişkilidir.
+- **Reservations** table:
+  - Related to **Books** table through `BookId`.
+  - Related to **Members** table through `MemberId`.
 
-- **Fines** tablosu:
-  - **Loans** tablosu ile `LoanId` üzerinden ilişkilidir.
+- **Fines** table:
+  - Related to **Loans** table through `LoanId`.
 
-## Prosedürler
+## Procedures
 
-- **`BorrowBook`**: Bir kitabı ödünç verme işlemini gerçekleştirir.
-- **`ReturnBook`**: Bir kitabın geri verilmesini ve gecikme cezasını hesaplar.
-- **`GetBookAuthors`**: Bir kitabın yazarlarını listeler.
+- **`BorrowBook`**: Handles the process of borrowing a book.
+- **`ReturnBook`**: Manages the return of a book and calculates any late fees.
+- **`GetBookAuthors`**: Lists the authors of a book.
 
-## Görünümler
+## Views
 
-- **`BookStatus`**: Kitapların mevcut durumunu (ödünçte mi, mevcut mı) gösterir.
-- **`MemberLoans`**: Üyelerin ödünç aldıkları kitapları ve detaylarını listeler.
-- **`BooksByCategory`**: Kategorilere göre kitap sayısını gösterir.
+- **`BookStatus`**: Shows the current status of books (whether they are on loan or available).
+- **`MemberLoans`**: Lists the books borrowed by members and their details.
+- **`BooksByCategory`**: Shows the number of books by category.
